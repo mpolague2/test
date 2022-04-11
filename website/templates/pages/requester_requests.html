@@ -1,4 +1,4 @@
-{% extends 'pages/base.html' %}
+{% extends 'pages/base.html'%}
 {% load static %}
 
 {% block navbar %}
@@ -9,31 +9,50 @@
 <section class="hero">
     <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
             style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
-    <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
+    <div class="background-image" style="background-image: url({% static 'assets/img/call_of_duty.jpg' %}); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;"></div>
     <h1>Requester-Requests Detailed View</h1>
     <h3>Hard Drive Tracking System</h3>
+
+	<script type="text/javascript" language="javascript" src="
+         http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js">
+	</script>
+      <script>
+         $(document).ready(function($) {
+             // Check All
+             $('.checkall').click(function() {
+                 $(":checkbox").attr("checked", true);
+             });
+             // Uncheck All
+             $('.uncheckall').click(function() {
+                 $(":checkbox").attr("checked", false);
+             });
+         });
+      </script>
+
     <!--Abel-->
     <!--Search-->
 		<form style="text-align:center;">
-			<h1 style="color: black; font-size: 25px;">Request Attribute</h1>
+			<h1 style="color: grey; font-size: 30px;">Request Information</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Request Attribute</h1>
 			<label for "Request Reference No.">Request Reference No.</label><br>
 			<input type="text" id="Request Reference No." name="Request Reference No."><br>
 			<br>
 			<label for "Request Status">Request Status</label><br>
 			<select name="Request Status" id="Request Status">
 				<option value="Confirmed">Confirmed</option>
+				<option value="Unconfirmed">Unconfirmed</option>
 			</select><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Hard Drive Attribute</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Hard Drive Attribute</h1>
 			<label for "Total No. of Drives">Total No. of Drives</label><br>
-			<input type="radio" id="Less than" name="Less than" value="Less than">
+			<input type="radio" id="Less than" name="No. of Drives" value="Less than">
 			<label for="Less than">Less than</label><br>
-			<input type="radio" id="Equal" name="Equal" value="Equal">
+			<input type="radio" id="Equal" name="No. of Drives" value="Equal">
 			<label for="Equal">Equal</label><br>
-			<input type="radio" id="Greater than" name="Greater than" value="Greater than">
+			<input type="radio" id="Greater than" name="No. of Drives" value="Greater than">
 			<label for="Greater than">Greater than</label><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Event Attribute</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Event Attribute</h1>
 			<label for "Username">Username</label><br>
 			<input type="text" id="Username" name="Username"><br>
 			<br>
@@ -42,7 +61,7 @@
 				<option value="Training">Training</option>
 			</select><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Date</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Date</h1>
 			<label for="Event Start Date">Event Start Date</label><br>
 			<input type="date" id="Event Start Date" name="Event Start Date"><br>
 			<br>
@@ -55,7 +74,7 @@
 			<label for="Need Drive Due by Date">Need Drive Due by Date</label><br>
 			<input type="date" id="Need Drive Due by Date" name="Need Drive Due by Date"><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Keyword</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Keyword</h1>
 			<label for "Expression">Expression</label><br>
 			<input type="text" id="Expression" name="Expression"><br>
 			<br>
@@ -64,22 +83,23 @@
 		</form>
         <br>
         <br>
-	<!--Abel-->
+        <!--Abel-->
         <!--Request Information-->
 		<form style="text-align:center;">
-			<h1 style="color: black; font-size: 25px;">Summary View of Requests</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Summary View of Requests</h1>
 			<style>
 				table,
 				th,
 				td {
 					border: 1px solid black;
+					border-collapse: collapse;
 				}
 			</style>
 
 			<body>
-				<input type="checkbox" id="Select/Unselect All" name="Select/Unselect All">
-				<label for "Select/Unselect All">Select/Unselect All</label><br>
-				<table style="width: 100%">
+				<input type="checkbox" id="Select/Unselect All" class = "checkall" name="Select/Unselect All">
+				<label for "Select/Unselect All">Select/Unselect All</label> <input type="checkbox" id="Select/Unselect All" class = "uncheckall" name="Select/Unselect All">
+				<table style="width: 100%;">
 					<tr>
 						<th><input type="checkbox" id="Request Reference No." name="Request Reference No."> Request Reference No.</th>
 						<th><input type="checkbox" id="Request Date" name="Request Date"> Request Date</th>
@@ -93,6 +113,7 @@
 						<th><input type="checkbox" id="Event Type" name="Event Type"> Event Type</th>
 						<th><input type="checkbox" id="Event Lead Username" name="Event Lead Username">Event Lead
 							Username</th>
+						<th><input type="checkbox" id="Total No. of Drives" name="Total No. of Drives">Total No. of Drives</th>
 						<th><input type="checkbox" id="Request Status" name="Request Status"> Request Status</th>
 					</tr>
 					<tr>
@@ -105,6 +126,7 @@
 						<td>Scan data for Military Training</td>
 						<td>Data Training</td>
 						<td>DataMan7711</td>
+						<td>Less than</td>
 						<td>Confirmed</td>
 					</tr>
 				</table>
@@ -114,10 +136,10 @@
 					class="btn btn-primary" /></a><br>
 			<br>
 			<br>
-	    <!--Abel-->
+            <!--Abel-->
             <!--Detailed View of a Selected Request-->
-			<h1 style="color: red; font-size: 30px;">Event Information</h1>
-			<h1 style="color: black; font-size: 25px;">Event Attributes</h1>
+			<h1 style="color: grey; font-size: 30px;">Event Information</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Event Attributes</h1>
 			<label for "Event Name">Event Name</label><br>
 			<input type="text" id="Event Name" name="Event Name"><br>
 			<br>
@@ -141,14 +163,14 @@
 				<option value="Confirmed">Confirmed</option>
 			</select><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Event Dates</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Event Dates</h1>
 			<label for="Event Start Date">Event Start Date</label><br>
 			<input type="date" id="Event Start Date" name="Event Start Date"><br>
 			<br>
 			<label for="Event End Date">Event End Date</label><br>
 			<input type="date" id="Event End Date" name="Event End Date"><br>
 			<br>
-			<h1 style="color: black; font-size: 25px;">Event Participants</h1>
+			<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 25px;">Event Participants</h1>
 			<label for "Event Team Lead Name*">Event Team Lead Name*</label><br>
 			<select name="Event Team Lead Name*" id="Event Team Lead Name*">
 				<option value="DataMan7711">DataMan7711</option>
@@ -159,23 +181,24 @@
 				<option value="AnalystMan7711">AnalystMan7711</option>
 				<option value="AnalyzeDataDude7711">AnalyzeDataDude7711</option>
 			</select><br>
-	    
-	    <!--From here and out its yours Bryant-->
+            
+            <!--From here and out its yours Bryant-->
             <br>
             <br>
 			<form style="margin-left: 560px; margin-top: -800px;">
-				<h1 style="color: red; font-size: 30px;">Hard Drive Request</h1>
+				<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 30px;">Hard Drive Request</h1>
 				<style>
 					table,
 					th,
 					td {
 						border: 1px solid black;
+						border-collapse: collapse;
 					}
 				</style>
 
 				<body>
-					<input type="checkbox" id="Select/Unselect All" name="Select/Unselect All">
-					<label for "Select/Unselect All">Select/Unselect All</label><br>
+					<input type="checkbox" id="Select/Unselect All" class = "checkall" name="Select/Unselect All">
+					<label for "Select/Unselect All">Select/Unselect All</label> <input type="checkbox" id="Select/Unselect All" class = "uncheckall" name="Select/Unselect All">
 					<table style="width: 100%">
 						<tr>
 							<th><input type="checkbox" id="Hard Drive Classification" name="Hard Drive Classification">
@@ -204,9 +227,9 @@
 				<br>
 				<br>
 				<br>
-				<h1 style="color: red; font-size: 30px;">Hard Drive Assignment (Requestors only)</h1>
-				<input type="checkbox" id="Select/Unselect All" name="Select/Unselect All">
-				<label for "Select/Unselect All">Select/Unselect All</label>
+				<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 30px;">Hard Drive Assignment (Requestors only)</h1>
+				<input type="checkbox" id="Select/Unselect All" class = "checkall" name="Select/Unselect All">
+				<label for "Select/Unselect All">Select/Unselect All</label> <input type="checkbox" id="Select/Unselect All" class = "uncheckall" name="Select/Unselect All">
 				<table style="width: 100%">
 					<tr>
 						<th><input type="checkbox" id="Issue Date" name="Issue Date"> Issue Date</th>
@@ -251,12 +274,12 @@
 					</tr>
 				</table>
 </body>
-<input type="submit" value="Confirm Pickup" style="font-size: 15px;"><br>
+<input type="submit" value="Confirm Pickup" style="font-size: 20px;"><br>
 <br>
 <br>
-<h1 style="color: red; font-size: 30px;">Hard Drive Assignment (Maintainers only)</h1>
-<input type="checkbox" id="Select/Unselect All" name="Select/Unselect All">
-<label for "Select/Unselect All">Select/Unselect All</label>
+<h1 style="color: rgba(201, 219, 10, 0.9); font-size: 30px;">Hard Drive Assignment (Maintainers only)</h1>
+<input type="checkbox" id="Select/Unselect All" class = "checkall" name="Select/Unselect All">
+<label for "Select/Unselect All">Select/Unselect All</label> <input type="checkbox" id="Select/Unselect All" class = "uncheckall" name="Select/Unselect All">
 <table style="width: 100%">
 	<tr>
 		<th><input type="checkbox" id="Creation Date" name="Creation Date"> Creation Date</th>
@@ -317,12 +340,14 @@
 	</tr>
 </table>
 </body>
-<input type="submit" value="Add" style="font-size: 15px;">
-<input type="submit" value="Delete" style="font-size: 15px;"><br>
+<input type="submit" value="Add" style="font-size: 20px;">
+<input type="submit" value="Delete" style="font-size: 20px;"><br>
 <br>
 <br>
-<input type="submit" value="Save" style="font-size: 30px;">
-<input type="submit" value="Cancel" style="font-size: 30px;">
+<br>
+<br>
+<input type="submit" value="Save" style="font-size: 25px;">
+<input type="submit" value="Cancel" style="font-size: 25px;">
 </section>
 
 {% endblock %}
