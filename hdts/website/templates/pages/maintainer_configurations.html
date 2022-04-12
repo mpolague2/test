@@ -1,0 +1,94 @@
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block navbar %}
+{% include 'pages/navbar_maintainer.html' %}
+{% endblock %}
+
+{% block mainBody %}
+<section class="hero">
+    <p style="text-align:center;">Maintainer: {{request.user}} <a href="{% url 'logoutUser' %}"><span
+            style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+    <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
+    <h1>Maintainer-Configurations Detailed View</h1>
+    <h3>Hard Drive Tracking System</h3>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <style>
+        .collapsible {
+            background-color: #777;
+            color: white;
+            cursor: pointer;
+            padding: 18px;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 15px;
+        }
+
+        .active, .collapsible:hover {
+            background-color: #555;
+        }
+
+        .content {
+            padding: 0 18px;
+            display: none;
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+    </style>
+
+
+    <body>
+        <button type="button" class="collapsible">Drive Inventory Threshold Configuration</button>
+        <div class="content">
+            <button type="button" class="btn">Add</button>
+            <button type="button" class="btn">Delete</button>
+        </div><br>
+
+        <button type="button" class="collapsible">Event Configuration</button>
+        <div class="content">
+            
+        </div><br>
+
+        <button type="button" class="collapsible">Forecasted Request Notification Threshold Configuration</button>
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div><br>
+
+        <button type="button" class="collapsible">Delinquency Notification for Overdue Hard Drive Threshold Configuration</button>
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div><br>
+
+        <button type="button" class="collapsible">Hard Drive Configuration</button>
+        <div class="content">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        </div>
+
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+            content.style.display = "none";
+            } else {
+            content.style.display = "block";
+            }
+        });
+        }
+    </script>
+
+    </body>
+    </html>
+
+
+</section>
+{% endblock %}
+
