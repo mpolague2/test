@@ -97,7 +97,33 @@ def requester_requests(request):
 @allowed_users(allowed_roles=['admin', 'requester'])
 def requester_messages(request):
     return render(request, 'pages/requester_messages.html')
-
+    
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'requester'])
+def requester_inventory(request):
+    hard_drives_object = HardDrive.objects.all()
+    labels = ["Available", "Unavailable"]
+    c_data = [0,0]
+    classified_drives = HardDrive.objects.filter(classification="Classified")
+    for drive in classified_drives:
+        if drive.status == "Available":
+            c_data[0] += 1
+        else:
+            c_data[1] += 1
+    u_data = [0,0]
+    unclassified_drives = HardDrive.objects.filter(classification="Unclassified")
+    for drive in unclassified_drives:
+        if drive.status == "Available":
+            u_data[0] += 1
+        else:
+            u_data[1] += 1
+    context = {
+        'hard_drives': hard_drives_object,
+        'labels': labels,
+        'c_data': c_data, 
+        'u_data': u_data
+    }
+    return render(request, 'pages/requester_inventory.html', context)
 
 # maintainer views
 ################################################################
