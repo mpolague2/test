@@ -150,6 +150,23 @@ class HardDrive(models.Model):
         return " ".join(details)
 
 
+#Denise
+class Amendment(models.Model):
+    #Denise
+    amendment_Status = (
+        #(Actual Value, human-readable name)
+        ("Created","Created"),
+        ("Approved","Approved"),
+        ("Denied","Denied"),
+    )
+
+    # (blank=False, null=False) means that it is required
+    submissionDate  = models.DateField(auto_now_add=False) #required
+    description     = models.FileField(upload_to=None, max_length=100) # double check & required
+    decisionDate    = models.DateField(auto_now_add=True) #required
+    status          = amendment_Status 
+    comment         = models.FileField(upload_to=None, max_length=100) # double check
+
 # Miriam
 class Event(models.Model):
     # Denise
