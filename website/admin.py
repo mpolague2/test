@@ -10,4 +10,5 @@ admin.site.register(Maintainer)
 admin.site.register(Auditor)
 admin.site.register(Event)
 admin.site.register(Request)
+admin.site.register(Amendment)
 
