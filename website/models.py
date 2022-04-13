@@ -171,10 +171,8 @@ class Amendment(models.Model):
 class Event(models.Model):
     # Denise
     status_choices = (
-        ("Pending Request Approval", "Pending Request Approval"),
-        ("Upcoming", "Upcoming"),
-        ("Ongoing", "Ongoing"),
-        ("Past", "Past"),
+        ("Confirmed", "Confirmed"),
+        ("Forecasted", "Forecasted"),
         ("Cancelled", "Cancelled"),
     )
     duration_choices = (
@@ -201,7 +199,7 @@ class Event(models.Model):
     location = models.CharField(max_length=254)
     lead = models.CharField(max_length=254, blank=True, null=True)
     participants = models.CharField(max_length=254)
-    type = models.CharField(max_length=254, choices=type_choices,
+    type_of_event = models.CharField(max_length=254, choices=type_choices,
                             default=type_choices[0][0])  # required IT IS STILL PENDING
     duration = models.CharField(max_length=254, choices=duration_choices, default=duration_choices[0][0])  # required
     status = models.CharField(max_length=254, choices=status_choices, default=status_choices[0][0])  # required

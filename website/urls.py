@@ -17,7 +17,7 @@ urlpatterns = [
     path('requester_requests/', views.requester_requests, name='r_requests'),
     path('requester_messages/', views.requester_messages, name='r_messages'),
     path('requester_inventory/', views.requester_inventory, name='r_inventory'),
-
+    path('add_request/', views.add_requests),
     # maintainer urls
     ################################################################
     path('base_maintainer/', views.maintainer, name='maintainer'),

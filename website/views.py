@@ -5,7 +5,7 @@ from django.contrib.auth.models import Group
 
 # Create your views here.
 from .models import *
-from .forms import CreateUserForm, LoginForm
+from .forms import CreateUserForm, LoginForm, EventForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 
@@ -91,6 +91,19 @@ def requester(request):
 @allowed_users(allowed_roles=['admin', 'requester'])
 def requester_requests(request):
     return render(request, 'pages/requester_requests.html', {})
+
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'requester'])
+def add_requests(request):
+    submitted = False
+
+    if request.method == "POST":
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+    form = EventForm
+    return render(request, 'pages/add_request.html', {'form':form})
 
 
 @login_required(login_url='loginPage')

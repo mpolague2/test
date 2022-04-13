@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 
-from . models import Requester, HardDrive
+from . models import Requester, HardDrive, Event
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -47,3 +47,8 @@ class HardDriveForm(ModelForm):
             'hard_drive_return_date_justification',
             'actual_return_date',
         ]
+
+class EventForm(ModelForm):
+    class Meta:
+        model = Event
+        fields = "__all__"
