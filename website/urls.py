@@ -18,14 +18,17 @@ urlpatterns = [
     path('requester_messages/', views.requester_messages, name='r_messages'),
     path('requester_inventory/', views.requester_inventory, name='r_inventory'),
     path('add_request/', views.add_requests),
+    path('requester_profile/', views.requester_profile, name='r_profile'),
     # maintainer urls
     ################################################################
     path('base_maintainer/', views.maintainer, name='maintainer'),
     path('maintainer_requests/', views.maintainer_requests, name='m_requests'),
-    path('maintainer_hard_drives/', views.maintainer_hard_drives, name='m_hard_drives'),
+    path('maintainer_hard_drives/',
+         views.maintainer_hard_drives, name='m_hard_drives'),
     path('maintainer_messages/', views.maintainer_messages, name='m_messages'),
     path('maintainer_reports/', views.maintainer_reports, name='m_reports'),
-    path('maintainer_configurations/', views.maintainer_configurations, name='m_configurations'),
+    path('maintainer_configurations/',
+         views.maintainer_configurations, name='m_configurations'),
 
     # auditor urls
     ################################################################

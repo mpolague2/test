@@ -43,7 +43,8 @@ def registerPage(request):
                 email=user.email,
             )
 
-            return redirect('loginPage')  # redirect to login following registration
+            # redirect to login following registration
+            return redirect('loginPage')
 
     context = {
         'register_form': register_form
@@ -92,6 +93,13 @@ def requester(request):
 def requester_requests(request):
     return render(request, 'pages/requester_requests.html', {})
 
+
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'requester'])
+def requester_profile(request):
+    return render(request, 'pages/requester_profile.html', {})
+
+
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'requester'])
 def add_requests(request):
@@ -103,28 +111,30 @@ def add_requests(request):
             form.save()
 
     form = EventForm
-    return render(request, 'pages/add_request.html', {'form':form})
+    return render(request, 'pages/add_request.html', {'form': form})
 
 
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'requester'])
 def requester_messages(request):
     return render(request, 'pages/requester_messages.html')
-    
+
+
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'requester'])
 def requester_inventory(request):
     hard_drives_object = HardDrive.objects.all()
     labels = ["Available", "Unavailable"]
-    c_data = [0,0]
+    c_data = [0, 0]
     classified_drives = HardDrive.objects.filter(classification="Classified")
     for drive in classified_drives:
         if drive.status == "Available":
             c_data[0] += 1
         else:
             c_data[1] += 1
-    u_data = [0,0]
-    unclassified_drives = HardDrive.objects.filter(classification="Unclassified")
+    u_data = [0, 0]
+    unclassified_drives = HardDrive.objects.filter(
+        classification="Unclassified")
     for drive in unclassified_drives:
         if drive.status == "Available":
             u_data[0] += 1
@@ -133,13 +143,15 @@ def requester_inventory(request):
     context = {
         'hard_drives': hard_drives_object,
         'labels': labels,
-        'c_data': c_data, 
+        'c_data': c_data,
         'u_data': u_data
     }
     return render(request, 'pages/requester_inventory.html', context)
 
 # maintainer views
 ################################################################
+
+
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'maintainer'])
 def maintainer(request):
