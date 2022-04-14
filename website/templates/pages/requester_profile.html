@@ -41,12 +41,18 @@
 
 {% block mainBody %}
 <section class="hero">
-    <p style="text-align:center;"><a href="{% url 'logoutUser' %}"><span
+    <p style="text-align:left;"><a href="{% url 'logoutUser' %}"><span
                 style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
     <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
     <h1>Welcome, {{request.user}}!</h1>
     <h3>User Profile</h3>
-    Drive Inventory Charts<br>
+    <p style="text-align:left;">
+        First Name: <br>
+        Last Name: <br>
+        Email: <br>
+        User Name: <br>
+        Password: <br>
+    </p>
     <canvas id="ClassifiedChart" width="400" height="400"></canvas>
     Hard Drives<br>
 
