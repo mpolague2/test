@@ -132,7 +132,7 @@ def requester_inventory(request):
     hard_drives_object = HardDrive.objects.all()
     labels = ["Available", "Unavailable"]
     c_data = [0, 0]
-    classified_drives = HardDrive.objects.filter(classification="Classified")
+    classified_drives = HardDrive.objects.filter(classification__iexact="classified")
     for drive in classified_drives:
         if drive.status == "Available":
             c_data[0] += 1
@@ -140,7 +140,7 @@ def requester_inventory(request):
             c_data[1] += 1
     u_data = [0, 0]
     unclassified_drives = HardDrive.objects.filter(
-        classification="Unclassified")
+        classification__iexact="unclassified")
     for drive in unclassified_drives:
         if drive.status == "Available":
             u_data[0] += 1
