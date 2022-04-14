@@ -19,6 +19,7 @@ urlpatterns = [
     path('requester_inventory/', views.requester_inventory, name='r_inventory'),
     path('add_request/', views.add_requests),
     path('requester_profile/', views.requester_profile, name='r_profile'),
+
     # maintainer urls
     ################################################################
     path('base_maintainer/', views.maintainer, name='maintainer'),
@@ -36,5 +37,8 @@ urlpatterns = [
     path('auditor_hard_drives/', views.auditor_hard_drives, name='a_hard_drives'),
     path('auditor_messages/', views.auditor_messages, name='a_messages'),
     path('auditor_reports/', views.auditor_reports, name='a_reports'),
+
+    # amin urls
+    path('admin_profile/', views.admin_profile, name='a_profile'),
 
 ]
