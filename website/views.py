@@ -94,9 +94,15 @@ def requester_requests(request):
 
 
 @login_required(login_url='loginPage')
-@allowed_users(allowed_roles=['admin', 'requester'])
+@allowed_users(allowed_roles=['requester'])
 def requester_profile(request):
     return render(request, 'pages/requester_profile.html', {})
+
+
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin'])
+def admin_profile(request):
+    return render(request, 'pages/admin_profile.html', {})
 
 
 @login_required(login_url='loginPage')
