@@ -10,7 +10,7 @@ urlpatterns = [
     path('registerPage/', views.registerPage, name='registerPage'),
     path('loginPage/', views.loginPage, name="loginPage"),
     path('logoutUser/', views.logoutUser, name="logoutUser"),
-
+    
     # requester urls
     ################################################################
     path('base_requester/', views.requester, name='requester'),

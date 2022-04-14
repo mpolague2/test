@@ -5,17 +5,15 @@
 {% include 'pages/navbar_requester.html' %}
 {% endblock %}
 
-
-
 {% block mainBody %}
 <section class="hero">
     <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
-            style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+        style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
     <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
     <h1>Inventory</h1>
     <h3>Hard Drive Tracking System</h3>
-    Drive Inventory Charts<br>
-    <canvas id="classChart" width="400" height="100"></canvas>
+    Classified Drive Inventory<br>
+    <canvas id="classChart" width="30%" height="10%"></canvas>
     <script>
         $(document).ready(function(){
             var ctx = document.getElementById('classChart').getContext('2d');
@@ -24,7 +22,7 @@
                 data: {
                     labels: ['Available', 'Unavailable'],
                     datasets: [{
-                        label: 'Drive Availability',
+                        label: 'Classified Drive Availability',
                         data: {{c_data}},
                         backgroundColor: [
                             'rgba(54, 162, 235, 0.2)',
@@ -47,11 +45,42 @@
             });
         });
     </script>
-    Hard Drives<br>
+    <br>Unclassified Drive Inventory<br>
+    <canvas id="unclassChart" width="30%", height="10%"></canvas>
+    <script>
+        $(document).ready(function(){
+            var ctx = document.getElementById('unclassChart').getContext('2d');
+            var unclassChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Available', 'Unavailable'],
+                    datasets: [{
+                        label: 'Unclassified Drive Availability',
+                        data: {{u_data}},
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)', 
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+    <br>Hard Drives<br>
     {% for hard_drive in hard_drives %}
-    {{hard_drive}}  {{hard_drive.classification}}<br>
+    {{hard_drive}}<br>
     {% endfor %}
-
 </section>
-
 {% endblock %}
