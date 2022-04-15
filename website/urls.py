@@ -19,15 +19,16 @@ urlpatterns = [
     path('requester_inventory/', views.requester_inventory, name='r_inventory'),
     path('add_request/', views.add_requests),
     path('requester_profile/', views.requester_profile, name='r_profile'),
+    path('amendment_requester/', views.amendment_requester, name='amendment_requester'),#added
 
     # maintainer urls
     ################################################################
     path('base_maintainer/', views.maintainer, name='maintainer'),
     path('maintainer_requests/', views.maintainer_requests, name='m_requests'),
-    path('maintainer_hard_drives/',
-         views.maintainer_hard_drives, name='m_hard_drives'),
+    path('maintainer_hard_drives/',views.maintainer_hard_drives, name='m_hard_drives'),
     path('maintainer_messages/', views.maintainer_messages, name='m_messages'),
     path('maintainer_reports/', views.maintainer_reports, name='m_reports'),
+    path('amendment_maintainer/', views.amendment_maintainer, name='amendment'),#added
     path('maintainer_configurations/',
          views.maintainer_configurations, name='m_configurations'),
 
@@ -38,7 +39,10 @@ urlpatterns = [
     path('auditor_messages/', views.auditor_messages, name='a_messages'),
     path('auditor_reports/', views.auditor_reports, name='a_reports'),
 
-    # amin urls
+    # admin urls
     path('admin_profile/', views.admin_profile, name='a_profile'),
+
+    #not sure
+    path('metadata_request/', views.metadata_request, name='metadata_request'),#added
 
 ]

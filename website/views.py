@@ -246,3 +246,28 @@ def auditor_messages(request):
 @allowed_users(allowed_roles=['admin', 'auditor'])
 def auditor_reports(request):
     return render(request, 'pages/auditor_reports.html')
+
+# Test View (Not sure)
+################################################################
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_requester(request):
+    return render(request, 'pages/amendment_requester.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_maintainer(request):
+    return render(request, 'pages/amendment_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_maintainer(request):
+    return render(request, 'pages/amendment_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def metadata_request(request):
+    return render(request, 'pages/metadata_request.html')
+
+#in order to add a page need to alter the view and then urls page
+#views defines the html page for urls to display
