@@ -11,4 +11,5 @@ admin.site.register(Auditor)
 admin.site.register(Event)
 admin.site.register(Request)
 admin.site.register(Amendment)
+admin.site.register(HardDriveRequest)
 

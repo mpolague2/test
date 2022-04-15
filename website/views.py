@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -5,7 +6,7 @@ from django.contrib.auth.models import Group
 
 # Create your views here.
 from .models import *
-from .forms import CreateUserForm, LoginForm, EventForm
+from .forms import CreateUserForm, HardDriveRequestForm, LoginForm, EventForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 
@@ -108,15 +109,17 @@ def admin_profile(request):
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'requester'])
 def add_requests(request):
-    submitted = False
-
     if request.method == "POST":
         form = EventForm(request.POST)
-        if form.is_valid():
+        rform = HardDriveRequestForm(request.POST)
+        if form.is_valid() or rform.is_valid():
             form.save()
+            rform.save()
+            return HttpResponseRedirect('/add_request/')
 
     form = EventForm
-    return render(request, 'pages/add_request.html', {'form': form})
+    rForm = HardDriveRequestForm
+    return render(request, 'pages/add_request.html', {'form': form, 'rForm': rForm})
 
 
 @login_required(login_url='loginPage')
