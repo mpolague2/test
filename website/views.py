@@ -95,7 +95,7 @@ def requester_requests(request):
 
 
 @login_required(login_url='loginPage')
-@allowed_users(allowed_roles=['requester'])
+@allowed_users(allowed_roles=['requester', 'admin'])
 def requester_profile(request):
     return render(request, 'pages/requester_profile.html', {})
 
@@ -132,7 +132,8 @@ def requester_inventory(request):
     hard_drives_object = HardDrive.objects.all()
     labels = ["Available", "Unavailable"]
     c_data = [0, 0]
-    classified_drives = HardDrive.objects.filter(classification__iexact="classified")
+    classified_drives = HardDrive.objects.filter(
+        classification__iexact="classified")
     for drive in classified_drives:
         if drive.status == "Available":
             c_data[0] += 1
