@@ -82,5 +82,34 @@
     {% for hard_drive in hard_drives %}
     {{hard_drive}}<br>
     {% endfor %}
+    <form style="text-align: left; width: 100%;"></style>
+        <h1 style="color: white; font-size: 30px;">Inventory Search</h1>
+        <h1 style="color: white; font-size: 25px;">Date</h1>
+        <label for "Issue Date">Issue Date</label><br>
+        <input type="date" id="Issue Date" name="Issue Date"><br>
+        <br>
+        <label for "Modified Date">Modified Date</label><br>
+        <input type="date" id="Modified Date" name="Modified Date"><br>
+        <br>
+        <label for "Expected Hard Drive Return Date">Expected Hard Drive Return Date</label><br>
+        <input type="date" id="Expected Hard Drive Return Date" name="Expected Hard Drive Return Date"><br>
+        <br>
+        <h1 style"color: white; font-size: 25px;">Hard Drive Attributes</h1>
+        <label for "Hard Drive Serial No.">Hard Drive Serial No.</label><br>
+        <input type="text" id="Hard Drive Serial No." name="Hard Drive Serial No."><br>
+        <label for "Hard Drive Status">Hard Drive Status</label><br>
+        <select name="Hard Drive Status" id="Hard Drive Status">
+            <option value="Assigned">Assigned</option>
+            <option value="Available">Available</option>
+            <option value="End of Life">End of Life</option>
+            <option value="Master Clone">Master Clone</option>
+            <option value="Pending Wipe">Pending Wipe</option>
+            <option value="Destroyed">Destroyed</option>
+            <option value="Lost">Lost</option>
+            <option value="Overdue">Overdue</option>
+            <option value="Picked Up">Picked Up</option>
+            <option value="Returned">Returned</option>
+            <option value="Pending Change">Pending Change</option>
+    </form>
 </section>
 {% endblock %}
