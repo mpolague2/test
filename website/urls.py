@@ -33,6 +33,7 @@ urlpatterns = [
     path('metadata_maintainer/', views.metadata_maintainer, name='metadata_maintainer'),#added
     path('maintainer_configurations/',
          views.maintainer_configurations, name='m_configurations'),
+    path('maintainer_inventory/', views.maintainer_inventory, name='m_inventory'),
 
     # auditor urls
     ################################################################

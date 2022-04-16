@@ -293,3 +293,29 @@ class HardDriveRequest(models.Model):
     def __str__(self):  # uncomment to see default name in /admin
         details = (str(self.hd_classification), str(self.amount_required))
         return " ".join(details)
+
+class UserProfile(models.Model):
+    user_role_choices = (
+        ("Requestor", "Requestor"),
+        ("Auditor", "Auditor"),
+        ("Maintainer", "Maintainer"),
+        ("Admin", "Admin"),
+    )
+    
+    user_profile_status_choices = (
+        ("Pending", "Pending"),
+        ("Active", "Active"),
+        ("Disabled", "Disabled"),
+        ("Archived", "Archived"),
+    )
+    
+    first_name = models.CharField(max_length=50, blank=False, null=False)
+    last_name = models.CharField(max_length=50, blank=False, null=False)
+    email_address = models.EmailField(max_length=100, blank=False, null=False)
+    username = models.CharField(max_length=100, blank=False, null=False)
+    password = models.CharField(max_length=50, blank=False, null=False)
+    user_role = models.CharField(max_length=50, choices=user_role_choices, blank=False, null=False)
+    direct_supervisors_email = models.EmailField(max_length=100, blank=False, null=False)
+    branch_chiefs_email = models.EmailField(max_length=100, blank=False, null=False)
+    user_profile_status = models.CharField(max_length=50, choices=user_profile_status_choices, blank=False, null=False)
+    last_modified_date = models.DateField(blank=False, null=False)

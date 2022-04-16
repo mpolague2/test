@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block navbar %}
-{% include 'pages/navbar_requester.html' %}
+{% include 'pages/navbar_maintainer.html' %}
 {% endblock %}
 
 {% block mainBody %}
 <section class="hero">
-    <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
+    <p style="text-align:center;">Maintainer: {{request.user}} <a href="{% url 'logoutUser' %}"><span
         style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
     <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
     <h1>Inventory</h1>
@@ -81,6 +81,9 @@
     <form style="text-align: left; width: 100%;"></style>
         <h1 style="color: white; font-size: 30px;">Inventory Search</h1>
         <h1 style="color: white; font-size: 25px;">Date</h1>
+        <label for "Issue Date">Creation Date</label><br>
+        <input type="date" id="Creation Date" name="Creation Date"><br>
+        <br>
         <label for "Issue Date">Issue Date</label><br>
         <input type="date" id="Issue Date" name="Issue Date"><br>
         <br>
@@ -89,6 +92,13 @@
         <br>
         <label for "Expected Hard Drive Return Date">Expected Hard Drive Return Date</label><br>
         <input type="date" id="Expected Hard Drive Return Date" name="Expected Hard Drive Return Date"><br>
+        <br>
+        <label for "Boot Test Expiration Date">Boot Test Expiration Date</label><br>
+        <input type="date" id="Boot Test Expiration Date" name="Boot Test Expiration Date"><br>
+        <br>
+        <h1 style="color: white; font-size: 25px;">User</h1>
+        <label for "Modifier">Modifier</label><br>
+        <input type="text" id="Modifer" name="Modifier"><br>
         <br>
         <h1 style="color: white; font-size: 25px;">Hard Drive Attributes</h1>
         <label for "Hard Drive Serial No.">Hard Drive Serial No.</label><br>
