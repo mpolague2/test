@@ -319,3 +319,36 @@ class UserProfile(models.Model):
     branch_chiefs_email = models.EmailField(max_length=100, blank=False, null=False)
     user_profile_status = models.CharField(max_length=50, choices=user_profile_status_choices, blank=False, null=False)
     last_modified_date = models.DateField(blank=False, null=False)
+    
+class DriveInventoryThresholdConfiguration(models.Model):
+    drive_inventory_threshold_choices = (
+        ("Unclassified", "Unclassified"),
+        ("Classified", "Classified"),
+    )
+    
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)
+    drive_inventory_threshold = models.CharField(max_length=50, choices=drive_inventory_threshold_choices, blank=False, null=False)
+    
+class ForecastedRequestNotificationThresholdConfiguration(models.Model):
+    event_type = models.CharField(max_length=50, blank=False, null=False)
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)
+    
+class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Model):
+    notifyee_choices = (
+        ("Requestor", "Requestor"),
+        ("Maintainer", "Maintainer"),
+        ("Direct Supervisor", "Direct Supervisor"),
+        ("Branch Chief", "Branch Chief"),
+    )
+    
+    event_type = models.CharField(max_length=50, blank=False, null=False)
+    notifyee = models.CharField(max_length=50, choices=notifyee_choices, blank=False, null=False)
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)
+    
+class EventConfiguration(models.Model):
+    event_type_name = models.CharField(max_length=50, blank=False, null=False)
+    length_of_reporting_cycle = models.PositiveIntegerField(blank=False, null=False)
+    drive_limit = models.PositiveIntegerField(blank=False, null=False)
