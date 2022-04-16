@@ -269,8 +269,18 @@ def amendment_maintainer(request):
 
 @login_required(login_url='loginPage')
 #@allowed_users(allowed_roles=['requester', 'maintainer'])
-def metadata_request(request):
-    return render(request, 'pages/metadata_request.html')
+def metadata_requester(request):
+    return render(request, 'pages/metadata_requester.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def metadata_maintainer(request):
+    return render(request, 'pages/metadata_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def schedulereports(request):
+    return render(request, 'pages/schedulereports.html')
 
 #in order to add a page need to alter the view and then urls page
 #views defines the html page for urls to display

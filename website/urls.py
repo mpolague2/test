@@ -20,6 +20,7 @@ urlpatterns = [
     path('add_request/', views.add_requests),
     path('requester_profile/', views.requester_profile, name='r_profile'),
     path('amendment_requester/', views.amendment_requester, name='amendment_requester'),#added
+    path('metadata_requester/', views.metadata_requester, name='metadata_requester'),#added
 
     # maintainer urls
     ################################################################
@@ -29,6 +30,7 @@ urlpatterns = [
     path('maintainer_messages/', views.maintainer_messages, name='m_messages'),
     path('maintainer_reports/', views.maintainer_reports, name='m_reports'),
     path('amendment_maintainer/', views.amendment_maintainer, name='amendment'),#added
+    path('metadata_maintainer/', views.metadata_maintainer, name='metadata_maintainer'),#added
     path('maintainer_configurations/',
          views.maintainer_configurations, name='m_configurations'),
 
@@ -42,7 +44,10 @@ urlpatterns = [
     # admin urls
     path('admin_profile/', views.admin_profile, name='a_profile'),
 
-    #not sure
-    path('metadata_request/', views.metadata_request, name='metadata_request'),#added
+    #not sure schedulereports
+    
+    
+    path('schedulereports/', views.schedulereports, name='schedulereports'),#added
+
 
 ]
