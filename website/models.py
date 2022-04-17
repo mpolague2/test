@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -294,6 +295,7 @@ class HardDriveRequest(models.Model):
         details = (str(self.hd_classification), str(self.amount_required))
         return " ".join(details)
 
+# Jacob
 class UserProfile(models.Model):
     user_role_choices = (
         ("Requestor", "Requestor"),
@@ -312,14 +314,15 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=50, blank=False, null=False)
     last_name = models.CharField(max_length=50, blank=False, null=False)
     email_address = models.EmailField(max_length=100, blank=False, null=False)
-    username = models.CharField(max_length=100, blank=False, null=False)
+    username = models.CharField(max_length=100, unique=True, blank=False, null=False)
     password = models.CharField(max_length=50, blank=False, null=False)
     user_role = models.CharField(max_length=50, choices=user_role_choices, blank=False, null=False)
     direct_supervisors_email = models.EmailField(max_length=100, blank=False, null=False)
     branch_chiefs_email = models.EmailField(max_length=100, blank=False, null=False)
     user_profile_status = models.CharField(max_length=50, choices=user_profile_status_choices, blank=False, null=False)
     last_modified_date = models.DateField(blank=False, null=False)
-    
+
+# Jacob 
 class DriveInventoryThresholdConfiguration(models.Model):
     drive_inventory_threshold_choices = (
         ("Unclassified", "Unclassified"),
@@ -329,12 +332,20 @@ class DriveInventoryThresholdConfiguration(models.Model):
     threshold_level = models.CharField(max_length=50, blank=False, null=False)
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
     drive_inventory_threshold = models.CharField(max_length=50, choices=drive_inventory_threshold_choices, blank=False, null=False)
-    
+
+# Jacob   
+class EventConfiguration(models.Model):
+    event_type_name = models.CharField(max_length=50, unique=True, blank=False, null=False)
+    length_of_reporting_cycle = models.PositiveIntegerField(blank=False, null=False)
+    drive_limit = models.PositiveIntegerField(blank=False, null=False)
+
+# Jacob
 class ForecastedRequestNotificationThresholdConfiguration(models.Model):
-    event_type = models.CharField(max_length=50, blank=False, null=False)
+    event_type = models.ForeignKey(EventConfiguration, on_delete=models.CASCADE, to_field='event_type_name', blank=False, null=False)
     threshold_level = models.CharField(max_length=50, blank=False, null=False)
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
-    
+
+# Jacob
 class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Model):
     notifyee_choices = (
         ("Requestor", "Requestor"),
@@ -343,12 +354,7 @@ class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Mo
         ("Branch Chief", "Branch Chief"),
     )
     
-    event_type = models.CharField(max_length=50, blank=False, null=False)
+    event_type = models.ForeignKey(EventConfiguration, on_delete=models.CASCADE, to_field='event_type_name', blank=False, null=False)
     notifyee = models.CharField(max_length=50, choices=notifyee_choices, blank=False, null=False)
     threshold_level = models.CharField(max_length=50, blank=False, null=False)
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
-    
-class EventConfiguration(models.Model):
-    event_type_name = models.CharField(max_length=50, blank=False, null=False)
-    length_of_reporting_cycle = models.PositiveIntegerField(blank=False, null=False)
-    drive_limit = models.PositiveIntegerField(blank=False, null=False)
