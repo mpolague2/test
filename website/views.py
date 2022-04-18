@@ -311,5 +311,10 @@ def metadata_maintainer(request):
 def schedulereports(request):
     return render(request, 'pages/schedulereports.html')
 
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def buildreport(request):
+    return render(request, 'pages/buildreport.html')
+
 #in order to add a page need to alter the view and then urls page
 #views defines the html page for urls to display

@@ -49,6 +49,7 @@ urlpatterns = [
     
     
     path('schedulereports/', views.schedulereports, name='schedulereports'),#added
+    path('buildreport/', views.buildreport, name='buildreport'),#added
 
 
 ]
