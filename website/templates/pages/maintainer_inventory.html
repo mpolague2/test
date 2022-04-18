@@ -78,7 +78,7 @@
             });
         });
     </script>
-    <form style="text-align: left; width: 100%;"></style>
+    <form style="text-align: left; width: 75%;"></style>
         <h1 style="color: white; font-size: 30px;">Inventory Search</h1>
         <h1 style="color: white; font-size: 25px;">Date</h1>
         <label for "Issue Date">Creation Date</label><br>
@@ -188,10 +188,36 @@
         <label for "Request Reference No.">Expression</label><br>
         <input type="text" id="Expression" name="Expression"><br><br>
         <input type="submit" value="Search" style="font-size: 20px;">
-    </form>
-    <br>Hard Drives<br>
-    {% for hard_drive in hard_drives %}
-    {{hard_drive}}<br>
-    {% endfor %}
+    </form><br>
+    <h1 style="color: white; font-size: 30px;">Summary View of All Hard Drives</h1>
+    <table>
+        <tr>
+            <th>Select/Unselect All</th>
+            <th>Hard Drive Serial Number</th>
+            <th>Hard Drive Status</th>
+            <th>Manufacturer</th>
+            <th>Model No.</th>
+            <th>Hard Drive Classification</th>
+            <th>Hard Drive Connection Port</th>
+            <th>Hard Drive Size</th>
+            <th>Hard Drive Type</th>
+        </tr>
+        {% for hard_drive in hard_drives %}
+        <tr>
+            <td style="border: 1px solid #dddddd;"><input type="checkbox"></td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.serial_number}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.status}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.manufacturer}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.model_number}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.classification}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.connection_port}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.size}}</td>
+            <td style="border: 1px solid #dddddd;">{{hard_drive.type}}</td>
+        <tr>
+        {% endfor %}
+    </table>
+    <a href="http://localhost:8000/maintainer_inventory/">
+        <button style="height: 30px; width: 100px;">Add Hard Drive</button>
+     </a>
 </section>
 {% endblock %}
