@@ -1,0 +1,145 @@
+{% extends 'pages/base.html'%}
+{% load static %}
+
+{% block navbar %}
+{% include 'pages/navbar_requester.html' %}
+{% endblock %}
+
+{% block mainBody %}
+<section class="hero"> <!--- Side bar code
+    <style>
+        body {
+          font-family: "Lato", sans-serif;
+        }
+        
+        .sidenav {
+          width: 130px;
+          position: fixed;
+          z-index: 1;
+          top: 20px;
+          left: 10px;
+          background: #eee;
+          overflow-x: hidden;
+          padding: 8px 0;
+        }
+        
+        .sidenav a {
+          padding: 6px 8px 6px 16px;
+          text-decoration: none;
+          font-size: 25px;
+          color: #2196F3;
+          display: block;
+        }
+        
+        .sidenav a:hover {
+          color: #064579;
+        }
+        
+        .main {
+          margin-left: 140px; /* Same width as the sidebar + left position in px */
+          font-size: 28px; /* Increased text to enable scrolling */
+          padding: 0px 10px;
+        }
+        
+        @media screen and (max-height: 450px) {
+          .sidenav {padding-top: 15px;}
+          .sidenav a {font-size: 18px;}
+        }
+        </style> -->
+
+
+
+    <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
+            style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+    <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
+    <h1 style="text-align: center;">Amendment Information</h1>
+
+    <form style="text-align: left; width: 100%;">
+      <label for="User">User</label>
+      <br>
+      <input style="left: 100;align-self:unset;" type="User" name="User">
+      <br>
+      <label for="User">Amendment Submission Date</label>
+      <br>
+      <input type="date" style="left: 100;align-self:unset;" type="Amendment Submission Date" name="Amendment Submission Date">
+      <br>
+      <label for="User">Amendment Description</label>
+      <br>
+      <textarea name="Amendment Description" id="Amendment Description" cols="90" rows="10"></textarea>
+      <br>
+      <br>
+      <input class="button" type="submit" value="submit">
+    </form>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <style>
+        .collapsible {
+          background-color: #777;
+          color: rgb(252, 252, 252);
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+        }
+        
+        .active, .collapsible:hover {
+          background-color: #555;
+        }
+        
+        .content {
+          padding: 0 18px;
+          width: 100%;
+          text-align: center;
+          display: none;
+          border: none;
+          overflow: hidden;
+          background-color: #535868;
+        }
+        </style>
+        </head>
+        <body>
+        
+        <button type="button" class="collapsible">Amendment history</button>
+        <div class="content" style="align-items: center;">
+            <table >
+              <tr>
+                <th style="text-align: center; width: 100cm;">Time Stamp</th>
+  
+                <th style="text-align: center; width: 100cm;">User</th>
+                
+                <th style="text-align: center;width: 100cm;">action</th>
+              </tr>
+                <td>Test 1</td>
+                <td>Test 2</td>
+                <td>Test 3</td>
+            </table>
+        </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+
+</section>
+
+{% endblock %}
+

@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -5,14 +6,13 @@ from django.contrib.auth.models import Group
 
 # Create your views here.
 from .models import *
-from .forms import CreateUserForm, LoginForm, EventForm
+from .forms import CreateUserForm, HardDriveRequestForm, LoginForm, EventForm
 from .decorators import unauthenticated_user, allowed_users
 from django.contrib.auth.decorators import login_required
 
 
 def base(request):
     return render(request, 'pages/base.html')
-
 
 @unauthenticated_user
 def registerPage(request):
@@ -95,23 +95,31 @@ def requester_requests(request):
 
 
 @login_required(login_url='loginPage')
-@allowed_users(allowed_roles=['admin', 'requester'])
+@allowed_users(allowed_roles=['requester', 'admin'])
 def requester_profile(request):
     return render(request, 'pages/requester_profile.html', {})
 
 
 @login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin'])
+def admin_profile(request):
+    return render(request, 'pages/admin_profile.html', {})
+
+
+@login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'requester'])
 def add_requests(request):
-    submitted = False
-
     if request.method == "POST":
         form = EventForm(request.POST)
-        if form.is_valid():
+        rform = HardDriveRequestForm(request.POST)
+        if form.is_valid() or rform.is_valid():
             form.save()
+            rform.save()
+            return HttpResponseRedirect('/add_request/')
 
     form = EventForm
-    return render(request, 'pages/add_request.html', {'form': form})
+    rForm = HardDriveRequestForm
+    return render(request, 'pages/add_request.html', {'form': form, 'rForm': rForm})
 
 
 @login_required(login_url='loginPage')
@@ -126,7 +134,8 @@ def requester_inventory(request):
     hard_drives_object = HardDrive.objects.all()
     labels = ["Available", "Unavailable"]
     c_data = [0, 0]
-    classified_drives = HardDrive.objects.filter(classification="Classified")
+    classified_drives = HardDrive.objects.filter(
+        classification__iexact="classified")
     for drive in classified_drives:
         if drive.status == "Available":
             c_data[0] += 1
@@ -134,7 +143,7 @@ def requester_inventory(request):
             c_data[1] += 1
     u_data = [0, 0]
     unclassified_drives = HardDrive.objects.filter(
-        classification="Unclassified")
+        classification__iexact="unclassified")
     for drive in unclassified_drives:
         if drive.status == "Available":
             u_data[0] += 1
@@ -219,8 +228,36 @@ def maintainer_configurations(request):
 
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'maintainer'])
+
 def maintainer_logPage(request):
     return render(request, 'pages/maintainer_logPage.html')
+
+def maintainer_inventory(request):
+    hard_drives_object = HardDrive.objects.all()
+    labels = ["Available", "Unavailable"]
+    c_data = [0, 0]
+    classified_drives = HardDrive.objects.filter(
+        classification__iexact="classified")
+    for drive in classified_drives:
+        if drive.status == "Available":
+            c_data[0] += 1
+        else:
+            c_data[1] += 1
+    u_data = [0, 0]
+    unclassified_drives = HardDrive.objects.filter(
+        classification__iexact="unclassified")
+    for drive in unclassified_drives:
+        if drive.status == "Available":
+            u_data[0] += 1
+        else:
+            u_data[1] += 1
+    context = {
+        'hard_drives': hard_drives_object,
+        'labels': labels,
+        'c_data': c_data,
+        'u_data': u_data
+    }
+    return render(request, 'pages/maintainer_inventory.html', context)
 
 # auditor views
 ################################################################
@@ -251,6 +288,7 @@ def auditor_messages(request):
 def auditor_reports(request):
     return render(request, 'pages/auditor_reports.html')
 
+
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'auditor'])
 def auditor_reports(request):
@@ -258,3 +296,43 @@ def auditor_reports(request):
 
 
 
+
+# Test View (Not sure)
+################################################################
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_requester(request):
+    return render(request, 'pages/amendment_requester.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_maintainer(request):
+    return render(request, 'pages/amendment_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def amendment_maintainer(request):
+    return render(request, 'pages/amendment_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def metadata_requester(request):
+    return render(request, 'pages/metadata_requester.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def metadata_maintainer(request):
+    return render(request, 'pages/metadata_maintainer.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def schedulereports(request):
+    return render(request, 'pages/schedulereports.html')
+
+@login_required(login_url='loginPage')
+#@allowed_users(allowed_roles=['requester', 'maintainer'])
+def buildreport(request):
+    return render(request, 'pages/buildreport.html')
+
+#in order to add a page need to alter the view and then urls page
+#views defines the html page for urls to display

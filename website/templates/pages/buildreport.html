@@ -1,0 +1,33 @@
+<label for="Report criteria content area">Report criteria content area</label>
+{% extends 'pages/base.html' %}
+{% load static %}
+
+{% block navbar %}
+{% include 'pages/navbar_maintainer.html' %}
+{% endblock %}
+
+{% block mainBody %}
+<section class="hero">
+    <p style="text-align:center;">Maintainer: {{request.user}} <a href="{% url 'logoutUser' %}"><span
+            style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+    <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
+    <h1>Scheduled Report</h1>            
+            <br>
+            <textarea name="Report criteria content area" id="Report criteria content area" cols="90" rows="10"></textarea>
+            <br>
+            <label for="Report details content area">Report details content area</label>
+            <br>
+            <textarea name="Report details content area" id="Report details content area" cols="90" rows="10"></textarea>
+            <br>
+            <input type="submit" name="Create">
+            <br>
+            <br>
+            <label for="User">Report construction content area</label>
+            <br>
+            <textarea name="Report construction content area" id="Report construction content area" cols="90" rows="10"></textarea>
+            <br>
+            <label for="User">Report scheduling content area.</label>
+            <br>
+            <textarea name="Report scheduling content area." id="Report scheduling content area." cols="90" rows="10"></textarea>
+        </section>
+        {% endblock %}

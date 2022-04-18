@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 
 # Create your models here.
@@ -167,9 +168,9 @@ class Amendment(models.Model):
     status          = amendment_Status 
     comment         = models.FileField(upload_to=None, max_length=100) # double check
 
-# Miriam
+# Alex
 class Event(models.Model):
-    # Denise
+    
     status_choices = (
         ("Confirmed", "Confirmed"),
         ("Forecasted", "Forecasted"),
@@ -194,17 +195,25 @@ class Event(models.Model):
         ("System Acceptance", "System Acceptance"),
         ("Other", "Other"),
     )
+
+    user_choices = (
+        ("Vince", "Vince"),
+        ("Joshua", "Joshua"),
+        ("Dr Cheon", "Dr Cheon"), 
+        ("Alexis", "Alexis")
+    )
+
     name = models.CharField(max_length=254)  # required
-    description = models.CharField(max_length=254)  # could be file attachment
     location = models.CharField(max_length=254)
-    lead = models.CharField(max_length=254, blank=True, null=True)
-    participants = models.CharField(max_length=254)
     type_of_event = models.CharField(max_length=254, choices=type_choices,
                             default=type_choices[0][0])  # required IT IS STILL PENDING
-    duration = models.CharField(max_length=254, choices=duration_choices, default=duration_choices[0][0])  # required
     status = models.CharField(max_length=254, choices=status_choices, default=status_choices[0][0])  # required
+    lead = models.CharField(max_length=254, blank=True, null=True, choices=user_choices, default=user_choices[0][0])
+    participants = models.CharField(max_length=254, choices=user_choices, default=user_choices[0][0])
+    duration = models.CharField(max_length=254, choices=duration_choices, default=duration_choices[0][0])  # required
     start_date = models.DateField(max_length=254)  # required
     end_date = models.DateField(max_length=254)  # required
+    description = models.CharField(max_length=254)  # could be file attachment
 
     def __str__(self):  # uncomment to see default name in /admin
         details = (str(self.name), str(self.lead))
@@ -238,3 +247,114 @@ class Request(models.Model):
     def __str__(self):  # uncomment to see default name in /admin
         details = (str(self.receipt_number), str(self.status))
         return " ".join(details)
+
+#Alex
+class HardDriveRequest(models.Model):
+    types_of_classification = (
+        ("Classified", "Classified"),
+        ("Unclassified", "Unclassified"),
+    )
+
+    hd_type_choices = (
+        ("Slow Hard Drive", "Slow Hard Drive"),
+        ("Fast Hard Drive", "Fast Hard Drive"),
+        ("Low-Capacity Drive", "Low-Capacity Drive"),
+        ("Fast-Capacity Drive", "Fast-Capacity Drive"),
+    )
+
+    port_choices = (
+        ("SATA", "SATA"),
+        ("M.2", "M.2"),
+    )
+
+    size_choices = (
+        ("16GB", "16GB"),
+        ("32GB", "32GB"),
+        ("64GB", "64GB"),
+        ("128GB", "128GB"),
+        ("256GB", "256GB"),
+        ("500GB", "500GB"),
+        ("1TB", "1TB"),
+        ("1.5TB", "1.5TB"),
+        ("2TB", "2TB"),
+        ("4TB", "4TB"),
+        ("6TB", "6TB"),
+        ("8TB", "8TB"),
+        ("12TB", "12TB"),
+        ("Other", "Other"),
+    )
+
+    hd_classification = models.CharField(max_length=50, choices=types_of_classification, blank=False, null=False, default=types_of_classification[0][0])
+    amount_required = models.PositiveIntegerField(default=0)
+    connection_port = models.CharField(max_length=50, choices=port_choices, blank=False, null=False, default=port_choices[0][0])
+    hd_size = models.CharField(max_length=50, choices=size_choices, blank=False, null=False, default=size_choices[0][0])
+    type_of_hd = models.CharField(max_length=50, choices=hd_type_choices, blank=False, null=False, default=hd_type_choices[0][0])
+    comment = models.CharField(max_length=360, blank=True, null=True)
+
+    def __str__(self):  # uncomment to see default name in /admin
+        details = (str(self.hd_classification), str(self.amount_required))
+        return " ".join(details)
+
+# Jacob
+class UserProfile(models.Model):
+    user_role_choices = (
+        ("Requestor", "Requestor"),
+        ("Auditor", "Auditor"),
+        ("Maintainer", "Maintainer"),
+        ("Admin", "Admin"),
+    )
+    
+    user_profile_status_choices = (
+        ("Pending", "Pending"),
+        ("Active", "Active"),
+        ("Disabled", "Disabled"),
+        ("Archived", "Archived"),
+    )
+    
+    first_name = models.CharField(max_length=50, blank=False, null=False)
+    last_name = models.CharField(max_length=50, blank=False, null=False)
+    email_address = models.EmailField(max_length=100, blank=False, null=False)
+    username = models.CharField(max_length=100, unique=True, blank=False, null=False)
+    password = models.CharField(max_length=50, blank=False, null=False)
+    user_role = models.CharField(max_length=50, choices=user_role_choices, blank=False, null=False)
+    direct_supervisors_email = models.EmailField(max_length=100, blank=False, null=False)
+    branch_chiefs_email = models.EmailField(max_length=100, blank=False, null=False)
+    user_profile_status = models.CharField(max_length=50, choices=user_profile_status_choices, blank=False, null=False)
+    last_modified_date = models.DateField(blank=False, null=False)
+
+# Jacob 
+class DriveInventoryThresholdConfiguration(models.Model):
+    drive_inventory_threshold_choices = (
+        ("Unclassified", "Unclassified"),
+        ("Classified", "Classified"),
+    )
+    
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)
+    drive_inventory_threshold = models.CharField(max_length=50, choices=drive_inventory_threshold_choices, blank=False, null=False)
+
+# Jacob   
+class EventConfiguration(models.Model):
+    event_type_name = models.CharField(max_length=50, unique=True, blank=False, null=False)
+    length_of_reporting_cycle = models.PositiveIntegerField(blank=False, null=False)
+    drive_limit = models.PositiveIntegerField(blank=False, null=False)
+
+# Jacob
+class ForecastedRequestNotificationThresholdConfiguration(models.Model):
+    event_type = models.ForeignKey(EventConfiguration, on_delete=models.CASCADE, to_field='event_type_name', blank=False, null=False)
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)
+
+# Jacob
+class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Model):
+    notifyee_choices = (
+        ("Requestor", "Requestor"),
+        ("Maintainer", "Maintainer"),
+        ("Direct Supervisor", "Direct Supervisor"),
+        ("Branch Chief", "Branch Chief"),
+    )
+    
+    event_type = models.ForeignKey(EventConfiguration, on_delete=models.CASCADE, to_field='event_type_name', blank=False, null=False)
+    notifyee = models.CharField(max_length=50, choices=notifyee_choices, blank=False, null=False)
+    threshold_level = models.CharField(max_length=50, blank=False, null=False)
+    threshold_value = models.PositiveIntegerField(blank=False, null=False)

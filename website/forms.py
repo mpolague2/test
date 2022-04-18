@@ -1,8 +1,9 @@
 from django.forms import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django import forms
 
-from . models import Requester, HardDrive, Event
+from . models import *
 
 class CreateUserForm(UserCreationForm):
     class Meta:
@@ -52,3 +53,31 @@ class EventForm(ModelForm):
     class Meta:
         model = Event
         fields = "__all__"
+
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'type_of_event': forms.Select(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'lead': forms.Select(attrs={'class': 'form-control'}),
+            'participants': forms.Select(attrs={'class': 'form-control'}),
+            'duration': forms.Select(attrs={'class': 'form-control'}),
+            'start_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'end_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control'}),
+        }
+
+class HardDriveRequestForm(ModelForm):
+    class Meta:
+        model = HardDriveRequest
+        fields = "__all__"
+
+        widgets = {
+            'hd_classification': forms.Select(attrs={'class': 'form-control'}),
+            'amount_required': forms.NumberInput(attrs={'class': 'form-control'}),
+            'connection_port': forms.Select(attrs={'class': 'form-control'}),
+            'hd_size': forms.Select(attrs={'class': 'form-control'}),
+            'type_of_hd': forms.Select(attrs={'class': 'form-control'}),
+            'comment': forms.Textarea(attrs={'class': 'form-control'})
+            
+        }   

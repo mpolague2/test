@@ -1,0 +1,129 @@
+{% extends 'pages/base.html'%}
+{% load static %}
+
+{% block navbar %}
+{% include 'pages/navbar_requester.html' %}
+{% endblock %}
+
+{% block mainBody %}
+<section class="hero"> 
+    <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
+        style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+<div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
+    <h3>Request Metadata Information</h3>
+    <h2><label for="Request Attributes">Request Attributes</label></h2>
+    <br>
+    <form>
+        <br>
+        <label for="Request Reference No">Request Reference No</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Request Reference No.</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Requester</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Request Creation Date</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Request Last Modified Date</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Request Updated By</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Request Status</label>
+        <br>
+        <select name="Request Status" id="Request Status">
+                <option value="Approve">Confirmed</option>
+                <option value="Decline">Un-Confirmed</option>
+                <option value="Approve">Canceled</option>
+                <option value="Approve">Pending</option>
+        </select>
+        <br>
+        <label for="Request Reference No">Comment</label>
+        <br>
+        <input type="text">
+        <br>
+        <label for="Request Reference No">Need Drives By Date</label>
+        <br>
+        <input type="date">
+
+
+
+
+    </form>
+
+    <style>
+        .collapsible {
+          background-color: #777;
+          color: rgb(252, 252, 252);
+          cursor: pointer;
+          padding: 18px;
+          width: 100%;
+          border: none;
+          text-align: left;
+          outline: none;
+          font-size: 15px;
+        }
+        
+        .active, .collapsible:hover {
+          background-color: #555;
+        }
+        
+        .content {
+          padding: 0 18px;
+          width: 100%;
+          text-align: center;
+          display: none;
+          border: none;
+          overflow: hidden;
+          background-color: #535868;
+        }
+        </style>
+        </head>
+        <body>
+        
+        <button type="button" class="collapsible">Request history</button>
+        <div class="content" style="align-items: center;">
+          <table >
+            <tr>
+              <th style="text-align: center; width: 100cm;">Time Stamp</th>
+
+              <th style="text-align: center; width: 100cm;">User</th>
+              
+              <th style="text-align: center;width: 100cm;">action</th>
+            </tr>
+              <td>Test 1</td>
+              <td>Test 2</td>
+              <td>Test 3</td>
+          </table>
+        </div>
+        
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+        
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+              content.style.display = "none";
+            } else {
+              content.style.display = "block";
+            }
+          });
+        }
+        </script>
+</section>
+
+{% endblock %}
+

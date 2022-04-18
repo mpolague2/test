@@ -5,55 +5,183 @@
 {% include 'pages/navbar_requester.html' %}
 {% endblock %}
 
-{% block scripts %}
-<script>
-    $(document).ready(function(){
-        var ctx = document.getElementById('ClassifiedChart').getContext('2d');
-        var ClassifiedChart = new Chart(ctx, {
-            type: 'pie',
-            data: {
-                labels: ['Available', 'Unavailable'],
-                datasets: [{
-                    label: 'Availability',
-                    data: [25, 10]
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    });
-</script>
-{% endblock %}
-
 {% block mainBody %}
 <section class="hero">
     <p style="text-align:center;">Requester: {{request.user}} <a href="{% url 'logoutUser' %}"><span
-            style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
+        style="color:rgba(201, 219, 10, 0.9);">[Logout]</span></a></p>
     <div class="background-image" style="background-image: url({% static 'assets/img/island.jpg' %});"></div>
     <h1>Inventory</h1>
     <h3>Hard Drive Tracking System</h3>
-    Drive Inventory Charts<br>
-    <canvas id="ClassifiedChart" width="400" height="400"></canvas>
-    Hard Drives<br>
-
+    Classified Drive Inventory<br>
+    <canvas id="classChart" width="30%" height="10%"></canvas>
+    <script>
+        $(document).ready(function(){
+            var ctx = document.getElementById('classChart').getContext('2d');
+            var classChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Available', 'Unavailable'],
+                    datasets: [{
+                        label: 'Classified Drive Availability',
+                        data: {{c_data}},
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)', 
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+    <br>Unclassified Drive Inventory<br>
+    <canvas id="unclassChart" width="30%", height="10%"></canvas>
+    <script>
+        $(document).ready(function(){
+            var ctx = document.getElementById('unclassChart').getContext('2d');
+            var unclassChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['Available', 'Unavailable'],
+                    datasets: [{
+                        label: 'Unclassified Drive Availability',
+                        data: {{u_data}},
+                        backgroundColor: [
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 99, 132, 0.2)', 
+                        ],
+                        borderColor: [
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 99, 132, 1)',
+                        ],
+                        borderWidth: 1,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                        }
+                    },
+                }
+            });
+        });
+    </script>
+    <form style="text-align: left; width: 100%;"></style>
+        <h1 style="color: white; font-size: 30px;">Inventory Search</h1>
+        <h1 style="color: white; font-size: 25px;">Date</h1>
+        <label for "Issue Date">Issue Date</label><br>
+        <input type="date" id="Issue Date" name="Issue Date"><br>
+        <br>
+        <label for "Modified Date">Modified Date</label><br>
+        <input type="date" id="Modified Date" name="Modified Date"><br>
+        <br>
+        <label for "Expected Hard Drive Return Date">Expected Hard Drive Return Date</label><br>
+        <input type="date" id="Expected Hard Drive Return Date" name="Expected Hard Drive Return Date"><br>
+        <br>
+        <h1 style="color: white; font-size: 25px;">Hard Drive Attributes</h1>
+        <label for "Hard Drive Serial No.">Hard Drive Serial No.</label><br>
+        <input type="text" id="Hard Drive Serial No." name="Hard Drive Serial No."><br><br>
+        <label for "Hard Drive Status">Hard Drive Status</label><br>
+        <select name="Hard Drive Status" id="Hard Drive Status">
+            <option value="Assigned">Assigned</option>
+            <option value="Available">Available</option>
+            <option value="End of Life">End of Life</option>
+            <option value="Master Clone">Master Clone</option>
+            <option value="Pending Wipe">Pending Wipe</option>
+            <option value="Destroyed">Destroyed</option>
+            <option value="Lost">Lost</option>
+            <option value="Overdue">Overdue</option>
+            <option value="Picked Up">Picked Up</option>
+            <option value="Returned">Returned</option>
+            <option value="Pending Change">Pending Change</option>
+        </select>
+        <br><br>
+        <label for "Image Version ID">Image Version ID</label><br>
+        <select name="Image Version ID" id="Image Version ID">
+            {% for hard_drive in hard_drives %}
+            <option value="{{hard_drive.image_version_ID}}">{{hard_drive.image_version_ID}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for "Boot Test Status">Boot Test Status</label><br>
+        <select name="Boot Test Status" id="Boot Test Status">
+            <option value="Pass">Pass</option>
+            <option value-"Fail">Fail</option>
+        </select>
+        <br><br>
+        <label for "Manufacturer">Manufacturer</label><br>
+        <select name="Manufacturer" id="Manufacturer">
+            <option value="Seagate">Seagate</option>
+            <option value="HP">HP</option>
+            <option value="Western-Digital">Western-Digital</option>
+            <option value="SanDisk">SanDisk</option>
+            <option value="Kingston Technology">Kingston Technology</option>
+        </select>
+        <br><br>
+        <label for "Model No.">Model No.</label><br>
+        <select name="Model No." id="Model No.">
+            {% for hard_drive in hard_drives %}
+            <option value="{{hard_drive.model_number}}">{{hard_drive.model_number}}</option>
+            {% endfor %}
+        </select>
+        <br><br>
+        <label for "Hard Drive Classification">Hard Drive Classification</label><br>
+        <select name="Hard Drive Classification" id="Hard Drive Classification">
+            <option value="Unclassified">Unclassified</option>
+            <option value="Classified">Classified</option>
+        </select>
+        <br><br>
+        <label for "Hard Drive Connection Port">Hard Drive Connection Port</label><br>
+        <select name="Hard Drive Connection Port" id="Hard Drive Connection Port">
+            <option value=""></option>
+        </select>
+        <br><br>
+        <label for "Hard Drive Size">Hard Drive Size</label><br>
+        <select name="Hard Drive Size" id="Hard Drive Size">
+            <option value="16GB">16GB</option>
+            <option value="32GB">32GB</option>
+            <option value="64GB">64GB</option>
+            <option value="128GB">128GB</option>
+            <option value="256GB">256GB</option>
+            <option value="500GB">500GB</option>
+            <option value="1TB">1TB</option>
+            <option value="1.5TB">1.5TB</option>
+            <option value="2TB">2TB</option>
+            <option value="4TB">4TB</option>
+            <option value="6TB">6TB</option>
+            <option value="8TB">8TB</option>
+            <option value="12TB">12TB</option>
+            <option value="Other">Other</option>
+        </select>
+        <br><br>
+        <label for "Hard Drive Type">Hard Drive Type</label><br>
+        <select name="Hard Drive Type" id="Hard Drive Type">
+            <option value=""></option>
+        </select>
+        <br><br>
+        <h1 style="color: white; font-size: 25px;">Request Reference</h1>
+        <label for "Request Reference No.">Request Reference No.</label><br>
+        <input type="text" id="Request Reference No." name="Request Reference No."><br><br>
+        <h1 style="color: white; font-size: 25px;">Keyword</h1>
+        <label for "Request Reference No.">Expression</label><br>
+        <input type="text" id="Expression" name="Expression"><br><br>
+        <input type="submit" value="Search" style="font-size: 20px;">
+    </form>
+    <br>Hard Drives<br>
     {% for hard_drive in hard_drives %}
     {{hard_drive}}<br>
     {% endfor %}
-
 </section>
-
 {% endblock %}
