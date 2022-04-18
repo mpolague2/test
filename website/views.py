@@ -178,6 +178,11 @@ def maintainer(request):
     }
     return render(request, 'pages/base_maintainer.html', context)
 
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'maintainer'])
+def maintainer_reports(request):
+    return render(request, 'pages/maintainer_logPage.html')
+
 
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'maintainer'])
@@ -212,6 +217,10 @@ def maintainer_reports(request):
 def maintainer_configurations(request):
     return render(request, 'pages/maintainer_configurations.html')
 
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'maintainer'])
+def maintainer_logPage(request):
+    return render(request, 'pages/maintainer_logPage.html')
 
 # auditor views
 ################################################################
@@ -241,3 +250,11 @@ def auditor_messages(request):
 @allowed_users(allowed_roles=['admin', 'auditor'])
 def auditor_reports(request):
     return render(request, 'pages/auditor_reports.html')
+
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'auditor'])
+def auditor_reports(request):
+    return render(request, 'pages/auditor_logPage.html')
+
+
+

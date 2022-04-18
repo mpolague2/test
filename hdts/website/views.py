@@ -201,8 +201,3 @@ def auditor_hard_drives(request):
 def auditor_messages(request):
     return render(request, 'pages/auditor_messages.html')
 
-
-@login_required(login_url='loginPage')
-@allowed_users(allowed_roles=['admin', 'auditor'])
-def auditor_reports(request):
-    return render(request, 'pages/auditor_reports.html')
