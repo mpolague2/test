@@ -187,6 +187,11 @@ def maintainer(request):
     }
     return render(request, 'pages/base_maintainer.html', context)
 
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'maintainer'])
+def maintainer_reports(request):
+    return render(request, 'pages/maintainer_logPage.html')
+
 
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'maintainer'])
@@ -223,6 +228,10 @@ def maintainer_configurations(request):
 
 @login_required(login_url='loginPage')
 @allowed_users(allowed_roles=['admin', 'maintainer'])
+
+def maintainer_logPage(request):
+    return render(request, 'pages/maintainer_logPage.html')
+
 def maintainer_inventory(request):
     hard_drives_object = HardDrive.objects.all()
     labels = ["Available", "Unavailable"]
@@ -278,6 +287,15 @@ def auditor_messages(request):
 @allowed_users(allowed_roles=['admin', 'auditor'])
 def auditor_reports(request):
     return render(request, 'pages/auditor_reports.html')
+
+
+@login_required(login_url='loginPage')
+@allowed_users(allowed_roles=['admin', 'auditor'])
+def auditor_reports(request):
+    return render(request, 'pages/auditor_logPage.html')
+
+
+
 
 # Test View (Not sure)
 ################################################################

@@ -24,6 +24,7 @@ urlpatterns = [
 
     # maintainer urls
     ################################################################
+    path('maintainer_logPage/', views.maintainer_logPage, name='maintainer_logPage'),
     path('base_maintainer/', views.maintainer, name='maintainer'),
     path('maintainer_requests/', views.maintainer_requests, name='m_requests'),
     path('maintainer_hard_drives/',views.maintainer_hard_drives, name='m_hard_drives'),
@@ -33,7 +34,9 @@ urlpatterns = [
     path('metadata_maintainer/', views.metadata_maintainer, name='metadata_maintainer'),#added
     path('maintainer_configurations/',
          views.maintainer_configurations, name='m_configurations'),
+
     path('maintainer_inventory/', views.maintainer_inventory, name='m_inventory'),
+
 
     # auditor urls
     ################################################################
@@ -41,6 +44,7 @@ urlpatterns = [
     path('auditor_hard_drives/', views.auditor_hard_drives, name='a_hard_drives'),
     path('auditor_messages/', views.auditor_messages, name='a_messages'),
     path('auditor_reports/', views.auditor_reports, name='a_reports'),
+    path('auditor_logPage/', views.auditor_reports, name='auditor_logPage'),
 
     # admin urls
     path('admin_profile/', views.admin_profile, name='a_profile'),

@@ -25,6 +25,7 @@ urlpatterns = [
     path('maintainer_messages/', views.maintainer_messages, name='m_messages'),
     path('maintainer_reports/', views.maintainer_reports, name='m_reports'),
     path('maintainer_configurations/', views.maintainer_configurations, name='m_configurations'),
+    path('maintainer_logPage/', views.maintainer, name='m_logPage'),
 
     # auditor urls
     ################################################################
