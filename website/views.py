@@ -174,6 +174,14 @@ def maintainer(request):
     maintainer_group = Group.objects.get(name="maintainer").user_set.all()
     auditor_group = Group.objects.get(name="auditor").user_set.all()
 
+
+    #Added by Miriam. Changes made on 4/11/2022
+    drive_inv_thresh_config = DriveInventoryThresholdConfiguration.objects.all()
+    forecasted_req_not_thresh = ForecastedRequestNotificationThresholdConfiguration.objects.all()
+    delinquency_not_overdue = DelinquencyNotificationForOverdueHardDriveThresholdConfiguration.objects.all()
+    event_config = EventConfiguration.objects.all()
+    log_action = LogAction.objects.all()
+
     context = {
         'requesters': requesters,
         'maintainers': maintainers,
@@ -184,6 +192,14 @@ def maintainer(request):
         'requester_group': requester_group,
         'maintainer_group': maintainer_group,
         'auditor_group': auditor_group,
+
+
+        #Added by Miriam. Changes made on 4/11/2022
+        'drive_inv_thresh_config': drive_inv_thresh_config,
+        'forecasted_req_not_thresh': forecasted_req_not_thresh,
+        'delinquency_not_overdue': delinquency_not_overdue,
+        'event_config': event_config,
+        'log_action': log_action,
     }
     return render(request, 'pages/base_maintainer.html', context)
 

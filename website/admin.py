@@ -13,7 +13,10 @@ admin.site.register(Request)
 admin.site.register(Amendment)
 admin.site.register(HardDriveRequest)
 admin.site.register(UserProfile)
+
+#Miriam & Jacob
 admin.site.register(DriveInventoryThresholdConfiguration)
 admin.site.register(ForecastedRequestNotificationThresholdConfiguration)
 admin.site.register(DelinquencyNotificationForOverdueHardDriveThresholdConfiguration)
 admin.site.register(EventConfiguration)
+admin.site.register(LogAction)

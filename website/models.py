@@ -322,7 +322,7 @@ class UserProfile(models.Model):
     user_profile_status = models.CharField(max_length=50, choices=user_profile_status_choices, blank=False, null=False)
     last_modified_date = models.DateField(blank=False, null=False)
 
-# Jacob 
+# Miriam & Jacob
 class DriveInventoryThresholdConfiguration(models.Model):
     drive_inventory_threshold_choices = (
         ("Unclassified", "Unclassified"),
@@ -333,19 +333,19 @@ class DriveInventoryThresholdConfiguration(models.Model):
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
     drive_inventory_threshold = models.CharField(max_length=50, choices=drive_inventory_threshold_choices, blank=False, null=False)
 
-# Jacob   
+# Miriam & Jacob
 class EventConfiguration(models.Model):
     event_type_name = models.CharField(max_length=50, unique=True, blank=False, null=False)
     length_of_reporting_cycle = models.PositiveIntegerField(blank=False, null=False)
     drive_limit = models.PositiveIntegerField(blank=False, null=False)
 
-# Jacob
+# Miriam & Jacob
 class ForecastedRequestNotificationThresholdConfiguration(models.Model):
     event_type = models.ForeignKey(EventConfiguration, on_delete=models.CASCADE, to_field='event_type_name', blank=False, null=False)
     threshold_level = models.CharField(max_length=50, blank=False, null=False)
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
 
-# Jacob
+# Miriam & Jacob
 class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Model):
     notifyee_choices = (
         ("Requestor", "Requestor"),
@@ -358,3 +358,13 @@ class DelinquencyNotificationForOverdueHardDriveThresholdConfiguration(models.Mo
     notifyee = models.CharField(max_length=50, choices=notifyee_choices, blank=False, null=False)
     threshold_level = models.CharField(max_length=50, blank=False, null=False)
     threshold_value = models.PositiveIntegerField(blank=False, null=False)
+
+
+#Miriam
+class LogAction(models.Model):
+    actionPerformed = models.CharField(max_length=254)  # required
+    timestampp = models.TimeField(max_length=254)  # required
+
+    def __str__(self):  # uncomment to see default name in /admin
+        details = (str(self.name), str(self.lead))
+        return " ".join(details)
